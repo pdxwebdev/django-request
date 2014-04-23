@@ -30,12 +30,6 @@ class RequestMiddleware(object):
         
         if settings.REQUEST_IGNORE_SELF_REFERER and Site.objects.get_current().domain in request.META.get('HTTP_REFERER', ''):
             return response
-        
-        if settings.REQUEST_IGNORE_BLANK_REFERER and not request.META.get('HTTP_REFERER', None):
-            return response
-        
-        if Request.objects.filter(referer=request.META.get('HTTP_REFERER', None)).count():
-            return response
 
         r = Request()
         r.from_http_request(request, response)
