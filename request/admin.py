@@ -16,7 +16,7 @@ from request.plugins import *
 
 
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ('time', 'path', 'response', 'method', 'request_from')
+    list_display = ('time', 'referer', 'response', 'method', 'request_from')
     fieldsets = (
         (_('Request'), {
             'fields': ('method', 'path', 'time', 'is_secure', 'is_ajax')
