@@ -27,9 +27,6 @@ class RequestMiddleware(object):
         if getattr(request, 'user', False):
             if request.user.username in settings.REQUEST_IGNORE_USERNAME:
                 return response
-        
-        if settings.REQUEST_IGNORE_SELF_REFERER and Site.objects.get_current().domain in request.META.get('HTTP_REFERER', ''):
-            return response
 
         r = Request()
         r.from_http_request(request, response)
