@@ -26,6 +26,8 @@ class Request(models.Model):
     method = models.CharField(_('method'), default='GET', max_length=7)
     path = models.CharField(_('path'), max_length=255)
     time = models.DateTimeField(_('time'), auto_now_add=True)
+    query = models.CharField(_('query'), max_length=255)
+    post = models.CharField(_('post'), max_length=255)
 
     is_secure = models.BooleanField(_('is secure'), default=False)
     is_ajax = models.BooleanField(_('is ajax'), default=False, help_text=_('Wheather this request was used via javascript.'))
@@ -54,6 +56,8 @@ class Request(models.Model):
         # Request infomation
         self.method = request.method
         self.path = request.path
+        self.query = request.GET.urlencode()
+        self.post = request.POST.urlencode()
 
         self.is_secure = request.is_secure()
         self.is_ajax = request.is_ajax()
